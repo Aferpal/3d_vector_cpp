@@ -31,6 +31,14 @@ AssertionData setsXYZValues(Point3D* ptr_point3d){
 	return AssertionData(res, std::string("Error on getter function on class Point3D: \nExpected: "+std::string(1, char((int)EXPECTED_FINAL_X-'0'))+", "+std::string(1, char((int)EXPECTED_FINAL_Y-'0'))+", "+std::string(1, char((int)EXPECTED_FINAL_Z-'0'))+"\nActual: "+std::string(1, char((int)ptr_point3d->getX()-'0'))+", "+std::string(1, char((int)ptr_point3d->getY()-'0'))+", "+std::string(1, char((int)ptr_point3d->getZ()-'0'))));
 }
 
+AssertionData isEqualToOtherObjectWithSameValues(Point3D* ptr_point3d){
+	if(ptr_point3d){delete ptr_point3d;}
+	ptr_point3d=new Point3D(1, 2, 3);
+	Point3D otherPoint(1, 2, 3);
+	return AssertionData(*ptr_point3d == otherPoint, "Error on == operator, equal objects return false");
+}
+
+
 int main(){
 	int passedTests=0;
 	int triedTests=0;
@@ -50,6 +58,14 @@ int main(){
 		passedTests++;
 	}else{
 		std::cout<<"Error on test 2: "+test2.errorMessage<<'\n';
+	}
+	AssertionData test3 = isEqualToOtherObjectWithSameValues(testerPoint);
+	triedTests++;
+	if(test3.assertionValue){
+		std::cout<<"Test 3: acknowledged and passed\n";
+		passedTests++;
+	}else{
+		std::cout<<"Error on test 3: "+test3.errorMessage<<'\n';
 	}
 	std::cout<<"Tests attempted: "<<triedTests<<"\nTest Successfully passed: "<<passedTests<<"\nFailed tests: "<<triedTests-passedTests<<"\n";
 	if(testerPoint){std::cout<<"\n...\n...\nFreeing memory and resources\n...\n...\n";delete testerPoint;}

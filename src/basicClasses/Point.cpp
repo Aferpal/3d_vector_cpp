@@ -21,10 +21,13 @@ void Point3D::setX( float newX ){
 }
 
 void Point3D::setY( float newY ){
-	this->y=newY;
+	this->y = newY;
 }
 
 void Point3D::setZ( float newZ ){
-	this->z=newZ;
+	this->z = newZ;
 }
 
+bool Point3D::operator==( const Point3D& other ){
+	return (this->x==other.x && this->y==other.y && this->z==other.z);
+}

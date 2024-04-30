@@ -13,5 +13,5 @@ public:
 	void setX(float);
 	void setY(float);
 	void setZ(float);
-
+	bool operator==(const Point3D& other);
 };
